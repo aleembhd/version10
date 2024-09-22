@@ -267,13 +267,15 @@
                     <style>
                         body {
                             font-family: Arial, sans-serif;
-                            padding: 20px;
-                            max-width: 210mm;
+                            padding: 10px;
+                            max-width: 100%;
                             margin: 0 auto;
+                            font-size: 14px;
                         }
                         h1 {
                             text-align: center;
                             color: #333;
+                            font-size: 1.5em;
                         }
                         table {
                             width: 100%;
@@ -290,7 +292,8 @@
                         }
                         .print-btn {
                             display: block;
-                            width: 100px;
+                            width: 100%;
+                            max-width: 200px;
                             margin: 20px auto;
                             padding: 10px;
                             background-color: #007bff;
@@ -308,6 +311,17 @@
                                 print-color-adjust: exact !important;
                             }
                         }
+                        @media screen and (max-width: 600px) {
+                            body {
+                                font-size: 12px;
+                            }
+                            table {
+                                font-size: 10px;
+                            }
+                            th, td {
+                                padding: 4px;
+                            }
+                        }
                         /* Status color styles */
                         .status-Interested { background-color: #28a745; color: white; padding: 3px 8px; border-radius: 12px; }
                         .status-Not-Interested { background-color: #dc3545; color: white; padding: 3px 8px; border-radius: 12px; }
@@ -317,7 +331,9 @@
                 </head>
                 <body>
                     <h1>${title}</h1>
-                    ${tableContent}
+                    <div style="overflow-x: auto;">
+                        ${tableContent}
+                    </div>
                     <button class="print-btn" onclick="window.print()">Print</button>
                 </body>
                 </html>
