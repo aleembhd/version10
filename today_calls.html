@@ -348,7 +348,16 @@
             const backBtn = document.getElementById('backBtn');
             if (backBtn) {
                 backBtn.addEventListener('click', function() {
-                    window.location.href = 'maindashboard.html'; // Adjust this if the path is different
+                    // Check if there's an opener window (the original window that opened this one)
+                    if (window.opener && !window.opener.closed) {
+                        // Navigate the opener window to maindashboard.html
+                        window.opener.location.href = 'maindashboard.html';
+                        // Close the current window/tab
+                        window.close();
+                    } else {
+                        // If there's no opener, just navigate the current window
+                        window.location.href = 'maindashboard.html';
+                    }
                 });
             }
 
@@ -429,10 +438,9 @@
                         <style>
                             body {
                                 font-family: Arial, sans-serif;
-                                padding: 10px;
-                                max-width: 100%;
+                                padding: 20px;
+                                max-width: 210mm;
                                 margin: 0 auto;
-                                font-size: 14px;
                             }
                             h1 {
                                 text-align: center;
