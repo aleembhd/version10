@@ -38,6 +38,90 @@
             padding: 1rem;
         }
 
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            z-index: 1001;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .bar {
+            width: 100%;
+            height: 4px;
+            background-color: var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.open .bar:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open .bar:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-top: 4rem; /* Adjusted padding to move links down */
+            padding-left: 1rem;
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+
+        .nav-menu a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .separator {
+            width: 80%;
+            height: 1px;
+            background-color: var(--secondary-color);
+            margin: 1rem 0;
+        }
+
+        .nav-menu.open {
+            left: 0;
+        }
+
         .container {
             position: relative;
             width: 100%;
@@ -306,6 +390,18 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="hamburger" id="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <a href="#about">About</a>
+            <div class="separator"></div>
+            <a href="#help">Help</a>
+        </div>
+    </div>
     <div class="container">
         <!-- <img src="images/logo.png" alt="Company Logo" class="logo"> -->
         <h1>Welcome</h1>
@@ -376,6 +472,8 @@
             const submitPassword = document.getElementById('submitPassword');
             const passwordToggle = document.getElementById('passwordToggle');
             const backBtn = document.getElementById('backBtn');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
 
             telecallerBtn.addEventListener('click', function() {
                 window.open('dialpad.html', '_blank');
@@ -437,6 +535,18 @@
                     modal.style.display = 'none';
                 }
             };
+
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('open');
+                hamburger.classList.toggle('open');
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target !== hamburger && !navMenu.contains(event.target)) {
+                    navMenu.classList.remove('open');
+                    hamburger.classList.remove('open');
+                }
+            });
         });
     </script>
 </body>
