@@ -536,16 +536,27 @@
                 }
             };
 
-            hamburger.addEventListener('click', function() {
-                navMenu.classList.toggle('open');
-                hamburger.classList.toggle('open');
+            hamburger.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent the click from propagating to the window
+                toggleMenu();
             });
 
-            window.addEventListener('click', function(event) {
-                if (event.target !== hamburger && !navMenu.contains(event.target)) {
+            function toggleMenu() {
+                navMenu.classList.toggle('open');
+                hamburger.classList.toggle('open');
+            }
+
+            // Close the menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
                     navMenu.classList.remove('open');
                     hamburger.classList.remove('open');
                 }
+            });
+
+            // Prevent clicks inside the menu from closing it
+            navMenu.addEventListener('click', function(event) {
+                event.stopPropagation();
             });
         });
     </script>
